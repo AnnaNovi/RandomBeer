@@ -1,7 +1,7 @@
 <template>
   <div class="profileBlock">
     <ProfileBlockImage :dataForImageBlock="dataForImageBlock"/>
-    <ProfileBlockMoreInfo />
+    <ProfileBlockMoreInfo v-if = 'false'/>
   </div>
 </template>
 
@@ -49,8 +49,6 @@ export default defineComponent({
 
 <style>
   .profileBlock{
-    display: flex;
-    justify-content: space-between;
-    max-width: 1200px;
+    width: 70%;
   }
 </style>
