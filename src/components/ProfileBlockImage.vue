@@ -49,7 +49,7 @@ export default defineComponent({
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     background: white;
     border-radius: 20px;
-    margin: 20px 30px;
+    margin: 0px 10px;
     padding: 10px 20px;
   }
   .profileImageWithName{
