@@ -12,19 +12,19 @@
         ><span>{{name}}: </span>{{prop}}</li>
       </template>
     </ul>
+    <img @mouseover="turnIcon = true" @mouseout="turnIcon = false" @click="getNewBeer" src="../assets/iconRestart.svg" alt="Get new beer" class="iconRestart" :class="{ iconRestartTurn: turnIcon }">
   </div>
 </template>
 
 <script lang='ts'>
-/* eslint-disable */
 import { defineComponent } from 'vue'
-import { ImageBlock } from '../types/types';
 
 export default defineComponent({
   name: 'BeerBlock',
   data() {
     return {
-      dataForBeerBlock: {}
+      dataForBeerBlock: {},
+      turnIcon: false
     }
   },
   methods: {
@@ -34,6 +34,13 @@ export default defineComponent({
     hideProperties(propertyName: string) {
       const hidePropertiesArray = ['id', 'uid', 'name'];
       return !hidePropertiesArray.includes(propertyName);
+    },
+    getNewBeer() {
+      fetch('https://random-data-api.com/api/beer/random_beer', {
+        method: 'GET'
+      })
+        .then(response => response.json())
+        .then(result => this.setDataForBeerBlock(result));
     }
   },
   mounted() {
@@ -48,6 +55,30 @@ export default defineComponent({
 
 <style lang='scss'>
 $red: firebrick;
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(-359deg);
+  }
+}
+@-moz-keyframes rotation {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(-359deg);
+  }
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-359deg);
+  }
+}
 .beerBlock {
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   background: $red;
@@ -56,6 +87,17 @@ $red: firebrick;
   margin: 0px 10px;
   padding: 30px 50px;
   height: fit-content;
+  position: relative;
+  .iconRestart {
+    position: absolute;
+    width: 30px;
+    right: -25px;
+    top: -25px;
+    cursor: pointer;
+    &.iconRestartTurn {
+      animation: rotation 5s infinite linear;
+    }
+  }
 }
 .beerBlockTitle {
   text-align: center;

@@ -1,7 +1,7 @@
 <template>
   <div class="profileBlock">
-    <ProfileBlockImage :dataForImageBlock="dataForImageBlock"/>
-    <ProfileBlockMoreInfo v-if = 'false'/>
+    <ProfileBlockImage :dataForImageBlock="dataForImageBlock" @openModal="showModal = true"/>
+    <ProfileBlockMoreInfo v-if = "showModal" :dataForMoreInfoBlock="dataForMoreInfoBlock" @closeModal="showModal = false" />
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import { defineComponent } from 'vue'
 import ProfileBlockImage from './ProfileBlockImage.vue';
 import ProfileBlockMoreInfo from './ProfileBlockMoreInfo.vue';
-import { ImageBlock } from '../types/types';
+import { ImageBlock, MoreInfoBlock } from '../types/types';
 
 export default defineComponent({
   name: 'ProfileBlock',
@@ -19,12 +19,9 @@ export default defineComponent({
   },
   data() {
     return {
-      dataForImageBlock: {
-        avatar: '',
-        first_name: '',
-        date_of_birth: '',
-        employment: ''
-      }
+      dataForImageBlock: {} as ImageBlock,
+      dataForMoreInfoBlock: {} as MoreInfoBlock,
+      showModal: false
     }
   },
   methods: {
@@ -35,20 +32,45 @@ export default defineComponent({
         date_of_birth: dataFromServer.date_of_birth,
         employment: dataFromServer.employment.title
       }
+    },
+    setDataForMoreInfoBlock(dataFromServer: any): MoreInfoBlock {
+      return this.dataForMoreInfoBlock = {
+        first_name: dataFromServer.first_name,
+        last_name: dataFromServer.last_name,
+        date_of_birth: dataFromServer.date_of_birth,
+        employment: dataFromServer.employment,
+        phone_number: dataFromServer.phone_number,
+        social_insurance_number: dataFromServer.social_insurance_number,
+        email: dataFromServer.email,
+        address: dataFromServer.address,
+        subscription: dataFromServer.subscription
+      }
     }
   },
   mounted() {
     fetch('https://random-data-api.com/api/users/random_user', {
       method: 'GET'
     })
-      .then(response => response.json())
-      .then(result => this.setDataForImageBlock(result));
+      .then(response => {
+        if(response.ok) {
+          return response.json()
+        }
+        throw new Error();
+      })
+      .then(result => {
+        this.setDataForImageBlock(result);
+        this.setDataForMoreInfoBlock(result);
+      })
+      .catch(error => console.log(error));
   }
 });
 </script>
 
 <style>
-  .profileBlock{
-    width: 70%;
-  }
+.profileBlock {
+  display: grid;
+  gap: 20px;
+  grid-template-rows: auto auto;
+  align-items: center;
+}
 </style>
