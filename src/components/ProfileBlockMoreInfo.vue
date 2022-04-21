@@ -100,6 +100,12 @@ export default defineComponent({
     position: absolute;
     z-index: 5;
     overflow: scroll;
+    @media (max-width: 767px) {
+      padding: 20px;
+    }
+    @media (max-width: 576px) {
+      width: 90%;
+    }
   }
   .modalClose {
     fill: black;
@@ -127,8 +133,15 @@ export default defineComponent({
     border: $red 1px solid;
     margin: 10px 0;
     border-radius: 10px;
+    font-size: 16px;
     &:first-child {
       font-weight: bold;
+    }
+    @media (max-width: 767px) {
+      padding: 10px 15px;
+    }
+    @media (max-width: 576px) {
+      font-size: 14px;
     }
   }
 }

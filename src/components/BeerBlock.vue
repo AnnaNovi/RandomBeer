@@ -12,7 +12,14 @@
         ><span>{{name}}: </span>{{prop}}</li>
       </template>
     </ul>
-    <img @mouseover="turnIcon = true" @mouseout="turnIcon = false" @click="getNewBeer" src="../assets/iconRestart.svg" alt="Get new beer" class="iconRestart" :class="{ iconRestartTurn: turnIcon }">
+    <img
+      @mouseover="turnIcon = true"
+      @mouseout="turnIcon = false"
+      @click="getNewBeer"
+      src="../assets/iconRestart.svg"
+      alt="Get new beer"
+      class="iconRestart"
+      :class="{ iconRestartTurn: turnIcon }">
   </div>
 </template>
 
@@ -85,9 +92,19 @@ $red: firebrick;
   color: white;
   border-radius: 20px;
   margin: 0px 10px;
-  padding: 30px 50px;
+  padding: 30px 40px;
   height: fit-content;
   position: relative;
+  @media (max-width: 767px) {
+    width: 50%;
+    min-width: 250px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+  @media (max-width: 576px) {
+    width: 70%;
+    min-width: initial;
+  }
   .iconRestart {
     position: absolute;
     width: 30px;
@@ -108,7 +125,7 @@ $red: firebrick;
   padding: 5px;
   border: 1px white solid;
   border-radius: 5px;
-  margin: 5px 0;
+  margin: 5px 0 5px 10px;
   position: relative;
   span {
     font-weight: bold;

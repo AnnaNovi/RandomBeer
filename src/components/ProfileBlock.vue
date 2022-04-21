@@ -1,7 +1,12 @@
 <template>
   <div class="profileBlock">
-    <ProfileBlockImage :dataForImageBlock="dataForImageBlock" @openModal="showModal = true"/>
-    <ProfileBlockMoreInfo v-if = "showModal" :dataForMoreInfoBlock="dataForMoreInfoBlock" @closeModal="showModal = false" />
+    <ProfileBlockImage
+      :dataForImageBlock="dataForImageBlock"
+      @openModal="showModal = true"/>
+    <ProfileBlockMoreInfo
+      v-if = "showModal"
+      :dataForMoreInfoBlock="dataForMoreInfoBlock"
+      @closeModal="showModal = false" />
   </div>
 </template>
 
@@ -66,11 +71,11 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss">
 .profileBlock {
-  display: grid;
-  gap: 20px;
-  grid-template-rows: auto auto;
-  align-items: center;
+  @media (max-width: 767px) {
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>
