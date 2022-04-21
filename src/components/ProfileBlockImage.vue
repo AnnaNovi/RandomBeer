@@ -4,6 +4,7 @@
       <img
         v-if="showImage"
         @click="reloadImage"
+        @touchstart="reloadImage"
         class="profileImage"
         :src="personImageUrl"
         alt="Image of profile"
@@ -15,6 +16,7 @@
     <button
       class="profileMoreInfoButton profileInfoBlock"
       @click="$emit('openModal')"
+      @touchstart="$emit('openModal')"
     >More information</button>
   </div>
 </template>
@@ -126,6 +128,7 @@ export default defineComponent({
   .profileMoreInfoButton {
     background: none;
     margin: 0 auto;
+    color: black;
     cursor: pointer;
     transition: 0.5s;
     &:hover {
