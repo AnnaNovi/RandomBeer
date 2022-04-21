@@ -1,12 +1,21 @@
 <template>
-  <div class="profileBlockImage profileBlockChild">
+  <div class="profileBlockImage">
     <figure class="profileImageWithName">
-      <img v-if="showImage" @click="reloadImage" class="profileImage" :src="personImageUrl" alt="Image of profile" title="You can try to reload this image">
+      <img
+        v-if="showImage"
+        @click="reloadImage"
+        class="profileImage"
+        :src="personImageUrl"
+        alt="Image of profile"
+        title="You can try to reload this image">
       <figcaption class="profileName">{{ personName }}</figcaption>
     </figure>
     <div class="profileInfoBlock"><span>Position:</span> {{ personPositionOfWork }}</div>
     <div class="profileInfoBlock"><span>Age:</span> {{ personAge }}</div>
-    <button class="profileMoreInfoButton profileInfoBlock" @click="$emit('openModal')">More information</button>
+    <button
+      class="profileMoreInfoButton profileInfoBlock"
+      @click="$emit('openModal')"
+    >More information</button>
   </div>
 </template>
 
@@ -59,12 +68,21 @@ export default defineComponent({
 <style lang='scss'>
   $red: firebrick;
 
-  .profileBlockChild{
+  .profileBlockImage{
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     background: white;
     border-radius: 20px;
     margin: 0px 10px;
     padding: 10px 20px;
+    @media (max-width: 767px) {
+      margin-bottom: 50px;
+      width: 70%;
+      min-width: 400px;
+    }
+    @media (max-width: 576px) {
+      width: 90%;
+      min-width: initial;
+    }
   }
   .profileImageWithName{
     position: relative;
@@ -73,6 +91,10 @@ export default defineComponent({
     margin: 0 auto 30px;
     display: flex;
     justify-content: center;
+    @media (max-width: 375px) {
+      width: 180px;
+      height: 180px;
+    }
   }
   .profileImage {
     cursor: pointer;

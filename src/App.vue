@@ -24,11 +24,18 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background: rgba(#d3d3d3, 0.5);
+}
 #app {
   font-family: 'Times New Roman', Times, serif;
-  background: rgba(#d3d3d3, 0.5);
   padding: 40px 80px;
-  height: 100vh;
+  @media (max-width: 992px) {
+    padding: 40px 40px;
+  }
+  @media (max-width: 576px) {
+    padding: 40px 20px;
+  }
 }
 .appWrapper {
   display: grid;
@@ -36,5 +43,9 @@ export default {
   grid-template-columns: 60% auto;
   align-items: center;
   max-width: 1200px;
+  margin: 0 auto;
+  @media (max-width: 767px) {
+    display: block;
+  }
 }
 </style>
