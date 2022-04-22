@@ -8,18 +8,16 @@
           v-for="(infoRow, name, index) in dataForMoreInfoBlock"
           :key="index"
         >
-          <tr
-            v-if="hideProperties(name)"
-          >
-            <td>{{ changeName(name) }}</td>
-            <td >{{ checkInfoRow(infoRow) }}
-              <ul v-if="showInfoObjType">
-                <li
-                  v-for="(prop, name, index) in infoRow"
-                  :key="index"
-                > <span style="text-decoration: underline;">{{ changeName(name) }}:</span> {{ prop }} </li>
-              </ul>
-            </td>
+          <tr v-if="hideProperties(name)">
+          <td>{{ changeName(name) }}</td>
+          <td >{{ checkInfoRow(infoRow) }}
+            <ul v-if="typeof infoRow === 'object' && !infoRow.city">
+              <li
+                v-for="(prop, innerName, innerIndex) in infoRow"
+                :key="innerIndex"
+              > <span style="text-decoration: underline;">{{ changeName(innerName) }}:</span> {{ prop }} </li>
+            </ul>
+          </td>
           </tr>
         </template>
       </table>
@@ -34,11 +32,6 @@ import { MoreInfoBlock, MoreInfoBlockAddress } from '../types/types';
 
 export default defineComponent({
   name: 'ProfileBlockMoreInfo',
-  data(){
-    return {
-      showInfoObjType: false
-    }
-  },
   computed: {
     personFullName() {
       return `${this.dataForMoreInfoBlock?.first_name} ${this.dataForMoreInfoBlock?.last_name}`;
@@ -59,12 +52,10 @@ export default defineComponent({
     },
     checkInfoRow(infoRow: string | object & MoreInfoBlockAddress) {
       if (typeof infoRow === 'string') {
-        this.showInfoObjType = false;
         return infoRow;
       } else if (infoRow.country) {
         return `${infoRow.country}, ${infoRow.state}, ${infoRow.city}, ${infoRow.street_name}, ${infoRow.street_address}`
       } else {
-        this.showInfoObjType = true;
         return undefined;
       }
     }
