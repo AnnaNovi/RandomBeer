@@ -15,9 +15,8 @@
     <img
       @mouseover="turnIcon = true"
       @mouseout="turnIcon = false"
-      @touchend="turnIcon = false"
       @click="getNewBeer"
-      @touchstart="getNewBeer"
+      @touchstart="turnIcon = false"
       src="../assets/iconRestart.svg"
       alt="Get new beer"
       class="iconRestart"
