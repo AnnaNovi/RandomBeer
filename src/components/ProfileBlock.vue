@@ -2,15 +2,18 @@
   <div class="profileBlock">
     <ProfileBlockImage
       :dataForImageBlock="dataForImageBlock"
-      @openModal="showModal = true"/>
+      @openModal="this.showModal = true"
+      />
     <ProfileBlockMoreInfo
-      v-if = "showModal"
+      v-if="showModal"
       :dataForMoreInfoBlock="dataForMoreInfoBlock"
-      @closeModal="showModal = false" />
+      @closeModal="this.showModal = false"
+      />
   </div>
 </template>
 
 <script lang='ts'>
+
 import { defineComponent } from 'vue'
 import ProfileBlockImage from './ProfileBlockImage.vue';
 import ProfileBlockMoreInfo from './ProfileBlockMoreInfo.vue';
