@@ -1,6 +1,6 @@
 <template>
-  <div class="profileBlockMoreInfoOverlay" @click="closeModalByOverlay">
-    <div class="profileBlockMoreInfo profileBlockChild">
+  <div class="profileBlockMoreInfoOverlay" @click="$emit('closeModal')">
+    <div class="profileBlockMoreInfo profileBlockChild" @click.stop>
       <svg class='modalClose' @click="$emit('closeModal')" @touchstart="$emit('closeModal')" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       <h3 class="profileBlockMoreInfoTitle">{{ personFullName }}</h3>
       <table>
@@ -41,11 +41,6 @@ export default defineComponent({
     hideProperties(propertyName: string) {
       const hidePropertiesArray = ['first_name', 'last_name'];
       return !hidePropertiesArray.includes(propertyName);
-    },
-    closeModalByOverlay(event: Event){
-      const elem = event.target;
-      //@ts-expect-error
-      (elem.classList.contains('profileBlockMoreInfo') || elem.closest('.profileBlockMoreInfo')) ? undefined : this.$emit('closeModal');
     },
     changeName(name: string){
       return (name.slice(0, 1).toUpperCase() + name.slice(1)).replaceAll('_', ' ');
