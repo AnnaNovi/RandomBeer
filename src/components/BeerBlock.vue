@@ -15,9 +15,7 @@
     <img
       @mouseover="turnIcon = true"
       @mouseout="turnIcon = false"
-      @touchend="turnIcon = false"
       @click="getNewBeer"
-      @touchstart="getNewBeer"
       src="../assets/iconRestart.svg"
       alt="Get new beer"
       class="iconRestart"
@@ -53,11 +51,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    fetch('https://random-data-api.com/api/beer/random_beer', {
-      method: 'GET'
-    })
-      .then(response => response.json())
-      .then(result => this.setDataForBeerBlock(result));
+    this.getNewBeer();
   }
 });
 </script>
@@ -115,6 +109,9 @@ $red: firebrick;
     cursor: pointer;
     &.iconRestartTurn {
       animation: rotation 5s infinite linear;
+      @media (max-width: 767px) {
+        animation: none;
+      }
     }
   }
 }
